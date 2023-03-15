@@ -15,7 +15,7 @@ pipeline {
         stage('Deploy') {
             steps {
                 sh '''
-                    sudo cp -R . /var/www/html/
+                    sudo echo "My funky Apache works just fine">/var/www/html/index.html
                 '''
             }
         }
