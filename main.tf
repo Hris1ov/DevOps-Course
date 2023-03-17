@@ -1,17 +1,13 @@
 provider "aws" {
-#  region = "us-east-1"
-#  access_key = "AWS_ACCESS_KEY"
-#  secret_key = "AWS_SECRET_ACCESS_KEY"
-   shared_credentials_file = "~/.aws/credentials"
 }
 
 terraform {
-#  backend "s3"{
-#    bucket = "devoops1451-terraform-state"
-#    key = "terraform.tfstate"
-#    region = "us-east-1"
-#    dynamodb_table = "tf_state_lock"
-#    encrypt = true  }
+  backend "s3"{
+    bucket = "devoops1451-terraform-state"
+    key = "terraform.tfstate"
+    region = "us-east-1"
+    dynamodb_table = "tf_state_lock"
+    encrypt = true  }
 }
 
 # EC2 instance resources
