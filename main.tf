@@ -10,8 +10,7 @@ terraform {
 #    key = "terraform.tfstate"
 #    region = "us-east-1"
 #    dynamodb_table = "tf_state_lock"
-#    encrypt = true
-  }
+#    encrypt = true  }
 }
 
 # EC2 instance resources
