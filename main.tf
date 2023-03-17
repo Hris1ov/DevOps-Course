@@ -1,14 +1,16 @@
 provider "aws" {
-  region = "us-east-1"
+#  region = "us-east-1"
+#  access_key = "AWS_ACCESS_KEY"
+#  secret_key = "AWS_SECRET_ACCESS_KEY"
 }
 
 terraform {
   backend "s3"{
-    bucket = "devops1451"
+    bucket = "devoops1451-terraform-state"
+    key = "terraform.tfstate"
     region = "us-east-1"
     dynamodb_table = "tf_state_lock"
     encrypt = true
-    key = "test_key" 
   }
 }
 
@@ -18,7 +20,7 @@ resource "aws_instance" "webserver1" {
   instance_type = "t2.micro"
   subnet_id     = "subnet-085ecd58410dc966c"
   key_name      = "test_key"
-  vpc_security_group_ids = ["sg-0fe370b9645d2f1bc"]
+  vpc_security_group_ids = ["sg-08df8158c7b20d46c"]
 
   user_data = <<-EOF
   #!/bin/bash
@@ -26,16 +28,16 @@ resource "aws_instance" "webserver1" {
   sudo yum install httpd -y
   sudo systemctl start httpd
   sudo systemctl enable httpd
-  sudo echo "web 1" >> /var/www/html/index.html
+  sudo echo "My first fockin instance works fine!!!" >> /var/www/html/index.html
   EOF
 }
 
 resource "aws_instance" "webserver2" {
   ami           = "ami-005f9685cb30f234b"
   instance_type = "t2.micro"
-  subnet_id     = "subnet-0bb21fd5313195e63"
+  subnet_id     = "subnet-085ecd58410dc966c"
   key_name      = "test_key"
-  vpc_security_group_ids = ["sg-0fe370b9645d2f1bc"]
+  vpc_security_group_ids = ["sg-08df8158c7b20d46c"]
 
   user_data = <<-EOF
   #!/bin/bash
@@ -43,7 +45,7 @@ resource "aws_instance" "webserver2" {
   sudo yum install httpd -y
   sudo systemctl start httpd
   sudo systemctl enable httpd
-  sudo echo "web 2 modaf" >> /var/www/html/index.html
+  sudo echo "Aand my second fockin instance works fine!!!" >> /var/www/html/index.html
   EOF
 }
 
@@ -51,9 +53,8 @@ resource "aws_lb" "lb1" {
   name               = "lb1"
   internal           = false
   load_balancer_type = "application"
-  subnets = ["subnet-085ecd58410dc966c", "subnet-0bb21fd5313195e63"]
-
-  security_groups = ["sg-0fe370b9645d2f1bc"]
+  subnets = ["subnet-085ecd58410dc966c"]
+  security_groups = ["sg-0362be82d370c2f38"]
 }
 
 resource "aws_lb_target_group" "tg1" {
