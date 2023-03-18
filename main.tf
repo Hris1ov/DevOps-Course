@@ -9,7 +9,7 @@ terraform {
     dynamodb_table = "tf_state_lock"
     encrypt = true
 }
-
+}
 # EC2 instance resources
 resource "aws_instance" "webserver1" {
   ami           = "ami-005f9685cb30f234b"
