@@ -1,5 +1,5 @@
 provider "aws" {
-default = "eu-east-1"
+  default = "us-east-1"
 }
 
 terraform {
