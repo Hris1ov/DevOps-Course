@@ -1,5 +1,8 @@
 provider "aws" {
 region = "us-east-1"
+  access_key = "AKIA5FWBX5CKYAHEL2ND"
+  secret_key = "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"
+
 }
 
 terraform {
@@ -9,14 +12,17 @@ terraform {
     region = "us-east-1"
     dynamodb_table = "tf_state_lock"
     encrypt = true
+    access_key = "AKIA5FWBX5CKYAHEL2ND"
+    secret_key = "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"
+ }
 }
-}
+
 # EC2 instance resources
 resource "aws_instance" "webserver1" {
   ami           = "ami-005f9685cb30f234b"
   instance_type = "t2.micro"
   subnet_id     = "subnet-085ecd58410dc966c"
-  key_name      = "test_key"
+  key_name      = "not-a-key"
   vpc_security_group_ids = ["sg-08df8158c7b20d46c"]
 
   user_data = <<-EOF
@@ -32,8 +38,8 @@ resource "aws_instance" "webserver1" {
 resource "aws_instance" "webserver2" {
   ami           = "ami-005f9685cb30f234b"
   instance_type = "t2.micro"
-  subnet_id     = "subnet-085ecd58410dc966c"
-  key_name      = "test_key"
+  subnet_id     = "subnet-0b0d5413adf55fdd2"
+  key_name      = "not-a-key"
   vpc_security_group_ids = ["sg-08df8158c7b20d46c"]
 
   user_data = <<-EOF
@@ -50,8 +56,8 @@ resource "aws_lb" "lb1" {
   name               = "lb1"
   internal           = false
   load_balancer_type = "application"
-  subnets = ["subnet-085ecd58410dc966c"]
-  security_groups = ["sg-0362be82d370c2f38"]
+  subnets = ["subnet-085ecd58410dc966c","subnet-0b0d5413adf55fdd2"]
+  security_groups = ["sg-08df8158c7b20d46c"]
 }
 
 resource "aws_lb_target_group" "tg1" {
@@ -88,4 +94,3 @@ resource "aws_lb_target_group_attachment" "tgw2" {
   target_id = "${aws_instance.webserver2.id}"
   port = 80
 }
-
