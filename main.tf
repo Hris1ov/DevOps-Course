@@ -1,8 +1,8 @@
 provider "aws" {
+default = "eu-east-1"
 }
 
 terraform {
-  default = "eu-east-1"
 }
 
 # EC2 instance resources
