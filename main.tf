@@ -27,7 +27,7 @@ resource "aws_instance" "webserver1" {
   sudo yum install httpd -y
   sudo systemctl start httpd
   sudo systemctl enable httpd
-  sudo echo "Trying to fix the problem I created..." >> /var/www/html/index.html
+  sudo echo "try to fix the problem I created..." >> /var/www/html/index.html
   EOF
 }
 
@@ -44,7 +44,7 @@ resource "aws_instance" "webserver2" {
   sudo yum install httpd -y
   sudo systemctl start httpd
   sudo systemctl enable httpd
-  sudo echo "...when I tried to fix the problem I created during" >> /var/www/html/index.html
+  sudo echo "...when I tried to fix the problem I created when I..." >> /var/www/html/index.html
   EOF
 }
 
